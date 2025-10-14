@@ -30,7 +30,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Slider } from '@/components/ui/slider';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { INDUSTRY_SEGMENTS, ADOPTION_RANGES } from '@/types/adoption';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 // Mock data for search results

@@ -4,12 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Search, MessageCircle, Star, ExternalLink, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Info, ArrowLeft, Upload, FileText, Filter, Settings, Save, Download, Package } from 'lucide-react';
+import { Search, MessageCircle, Star, ExternalLink, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Info, ArrowLeft, Upload, FileText, Filter, Save, Download } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useDropzone } from 'react-dropzone';
 import DataTable from '@/components/DataTable';
 import AIPanel from '@/components/AIPanel';
 import RiskBadge from '@/components/RiskBadge';
@@ -180,28 +179,17 @@ export default function CrossReference() {
     setShowCrossReferenceTable(true);
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: {
-      'text/csv': ['.csv'],
-      'application/vnd.ms-excel': ['.xls'],
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
-    },
-    multiple: false,
-    onDrop: (files) => {
-      console.log('BOM files uploaded:', files);
-    }
-  });
 
   const columns = useMemo(() => [
     {
       key: 'compatibility',
       title: t('partfinder.compatibility'),
       sortable: true,
-      render: (value: number) => (
+      render: (_value: number) => (
         <div className="flex items-center space-x-2">
-          <CompatibilityScore score={value} showProgressBar={true} />
-          {value === 100 && <CheckCircle className="w-4 h-4 text-green-500" />}
-          {value < 85 && <AlertTriangle className="w-4 h-4 text-orange-500" />}
+                  <CompatibilityScore score={_value} showProgressBar={true} />
+                  {_value === 100 && <CheckCircle className="w-4 h-4 text-green-500" />}
+                  {_value < 85 && <AlertTriangle className="w-4 h-4 text-orange-500" />}
         </div>
       ),
     },
@@ -272,56 +260,56 @@ export default function CrossReference() {
       render: (value: any, row: any) => {
         const buttonText = t('partfinder.showReasoning');
         return (
-          <div className="flex items-center gap-2" style={{ position: 'relative', zIndex: 1 }}>
-            <Checkbox
-              checked={compareList.includes(row.partNumber)}
-              onCheckedChange={() => toggleCompare(row.partNumber)}
-              disabled={!compareList.includes(row.partNumber) && compareList.length >= 3}
-            />
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('=== BUTTON CLICKED ===');
-                console.log('Language:', language);
-                console.log('Button text:', buttonText);
-                console.log('Row:', row.partNumber);
-                console.log('Current states - showReasoningDrawer:', showReasoningDrawer, 'selectedAlternative:', selectedAlternative);
+            <div className="flex items-center gap-2" style={{ position: 'relative', zIndex: 1 }}>
+              <Checkbox
+                checked={compareList.includes(row.partNumber)}
+                onCheckedChange={() => toggleCompare(row.partNumber)}
+                disabled={!compareList.includes(row.partNumber) && compareList.length >= 3}
+              />
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('=== BUTTON CLICKED ===');
+                  console.log('Language:', language);
+                  console.log('Button text:', buttonText);
+                  console.log('Row:', row.partNumber);
+                  console.log('Current states - showReasoningDrawer:', showReasoningDrawer, 'selectedAlternative:', selectedAlternative);
 
-                setSelectedAlternative(row);
-                setShowReasoningDrawer(true);
+                  setSelectedAlternative(row);
+                  setShowReasoningDrawer(true);
 
-                console.log('After setting states');
-              }}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '0.5rem 1rem',
-                fontSize: '0.75rem',
-                fontWeight: '500',
-                border: '1px solid #d1d5db',
-                borderRadius: '0.375rem',
-                backgroundColor: '#ffffff',
-                color: '#374151',
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-                minWidth: '90px',
-                height: '32px',
-                userSelect: 'none'
-              }}
-            >
-              <Info style={{ width: '12px', height: '12px', marginRight: '0.25rem', flexShrink: 0 }} />
-              <span>{buttonText}</span>
-            </button>
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-              <Star className="w-4 h-4" />
-            </Button>
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-              <ExternalLink className="w-4 h-4" />
-            </Button>
-          </div>
+                  console.log('After setting states');
+                }}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '0.5rem 1rem',
+                  fontSize: '0.75rem',
+                  fontWeight: '500',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '0.375rem',
+                  backgroundColor: '#ffffff',
+                  color: '#374151',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  minWidth: '90px',
+                  height: '32px',
+                  userSelect: 'none'
+                }}
+              >
+                <Info style={{ width: '12px', height: '12px', marginRight: '0.25rem', flexShrink: 0 }} />
+                <span>{buttonText}</span>
+              </button>
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                <Star className="w-4 h-4" />
+              </Button>
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                <ExternalLink className="w-4 h-4" />
+              </Button>
+            </div>
         );
       },
     },
@@ -401,17 +389,10 @@ export default function CrossReference() {
             <CardTitle className="text-base">{t('partfinder.bomBatch')}</CardTitle>
           </CardHeader>
           <CardContent>
-            <div
-              {...getRootProps()}
-              className={cn(
-                "border-2 border-dashed rounded-lg p-4 text-center cursor-pointer transition-colors",
-                isDragActive ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20" : "border-border hover:border-muted-foreground"
-              )}
-            >
-              <input {...getInputProps()} />
+            <div className="border-2 border-dashed rounded-lg p-4 text-center cursor-pointer transition-colors border-border hover:border-muted-foreground">
               <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
               <p className="text-sm text-muted-foreground">
-                {isDragActive ? t('partfinder.dropBOMFile') : t('partfinder.uploadBOMBatch')}
+                {t('partfinder.uploadBOMBatch')}
               </p>
             </div>
           </CardContent>
@@ -688,7 +669,7 @@ export default function CrossReference() {
               partNumber,
               manufacturer: component?.supplier || 'Unknown',
               specs: {
-                package: { value: component?.package || 'Unknown', status: component?.compatibility >= 95 ? 'match' : component?.compatibility >= 85 ? 'partial' : 'mismatch' },
+                package: { value: component?.package || 'Unknown', status: (component?.compatibility ?? 0) >= 95 ? 'match' : (component?.compatibility ?? 0) >= 85 ? 'partial' : 'mismatch' },
                 pinCount: { value: '100', status: 'match' },
                 pinAssignment: { value: pinAssignmentValue, status: pinAssignmentStatus, tooltip: pinAssignmentTooltip },
                 voltage: { value: '1.8V-3.6V', status: compatibility >= 90 ? 'match' : 'partial' },

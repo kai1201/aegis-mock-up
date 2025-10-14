@@ -23,8 +23,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -137,11 +136,6 @@ export default function Home() {
     handleSearch(chip);
   };
 
-  const getLifecycleBadge = (name: string, color: string) => (
-    <Badge variant="outline" className={`${color} text-white dark:text-white border-0`}>
-      {name}
-    </Badge>
-  );
 
   const renderSearchState = () => {
     switch (searchState) {
