@@ -216,7 +216,6 @@ export const translations = {
       riskScore: 'Risk Score',
       
       // Table columns
-      risk: 'Risk',
       refDes: 'Ref Des',
       partNumber: 'Part Number',
       supplier: 'Supplier',
@@ -581,7 +580,6 @@ export const translations = {
       strongStability: 'Strong stability indicators with official longevity commitment through 2034',
       mixedSignalsDetected: 'Mixed signals detected - recommend monitoring and preparing alternatives',
       multipleRiskFactorsPresent: 'Multiple risk factors present - plan migration within 12-18 months',
-      active: 'Active',
     },
     
     // Common
@@ -1429,7 +1427,6 @@ export const translations = {
       strongStability: '2034年までの公式長寿命コミットメントで強力な安定性指標',
       mixedSignalsDetected: '混合シグナルを検出 - 監視と代替品の準備を推奨',
       multipleRiskFactorsPresent: '複数のリスク要因が存在 - 12〜18ヶ月以内に移行を計画',
-      active: 'アクティブ',
       
       // Risk descriptions
       adcRegisterMappingDifferences: 'ADCレジスタマッピングの違い',

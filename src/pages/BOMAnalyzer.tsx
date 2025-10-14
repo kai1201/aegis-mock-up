@@ -300,7 +300,6 @@ export default function BOMAnalyzer() {
       ];
 
       let currentStepIndex = 0;
-      let progress = 0;
 
       const processStep = () => {
         if (currentStepIndex >= steps.length) {
@@ -453,7 +452,7 @@ export default function BOMAnalyzer() {
     {
       key: 'select',
       title: '',
-      render: (value: any, row: BOMItem) => (
+      render: (_: any, row: BOMItem) => (
         <div className="flex flex-col items-center space-y-2">
           {row.id === bomData[0]?.id && (
             <Checkbox

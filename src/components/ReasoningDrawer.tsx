@@ -383,12 +383,9 @@ export default function ReasoningDrawer({
 
   const getEOLRiskLevel = () => {
     const riskSignals = mockEOLSignals.filter(s => s.type === 'risk').length;
-    const safeSignals = mockEOLSignals.filter(s => s.type === 'safe').length;
-    const partialSignals = mockEOLSignals.filter(s => s.type === 'partial').length;
-
-    if (riskSignals >= 2) return 'High';
-    if (riskSignals === 1 || partialSignals >= 2) return 'Medium';
-    return 'Low';
+  if (riskSignals >= 2) return 'High';
+  if (riskSignals === 1 || mockEOLSignals.filter(s => s.type === 'partial').length >= 2) return 'Medium';
+  return 'Low';
   };
 
   const eolRiskLevel = getEOLRiskLevel();
@@ -407,10 +404,6 @@ export default function ReasoningDrawer({
       default: return t('reasoning.riskLevelAssessment');
     }
   };
-
-  const totalScore = mockCriterionScores.reduce((sum, criterion) => 
-    sum + (criterion.weight * criterion.score), 0
-  );
 
   const handleCopySummary = () => {
     const summary = language === 'ja' ? 
