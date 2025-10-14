@@ -1,16 +1,15 @@
 import React from 'react';
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { MessageCircle, Send, Bot, User, ExternalLink, TrendingUp, TriangleAlert as AlertTriangle, Search, FileText, Cpu, Zap, Star, Clock, DollarSign, History, Trash2 } from 'lucide-react';
+import { Send, Bot, User, ExternalLink, TrendingUp, TriangleAlert as AlertTriangle, Search, FileText, Cpu, Star, Clock, DollarSign, History, Trash2 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { Progress } from '@/components/ui/progress';
 import AIAnswerCard from '@/components/AIAnswerCard';
 import MacnicaExpertDrawer from '@/components/MacnicaExpertDrawer';
-import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ChatMessage {
@@ -84,11 +83,6 @@ const mockChatHistory: ChatHistory[] = [
 export default function AIAssistant() {
   const navigate = useNavigate();
   const { t, language } = useLanguage();
-  const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
-  const [currentProductIndex, setCurrentProductIndex] = useState(0);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [supplierFilter, setSupplierFilter] = useState('All Suppliers');
-  const [categoryFilter, setCategoryFilter] = useState('All Categories');
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
@@ -275,7 +269,7 @@ export default function AIAssistant() {
     },
   ];
 
-  const generateAIResponse = (query: string, language: string, t: (key: string) => string): string => {
+  const generateAIResponse = (query: string, language: string, translateFn: (key: string) => string): string => {
     if (query.toLowerCase().includes('alternative') || query.toLowerCase().includes('replace')) {
       if (language === 'ja') {
         return `コンポーネント交換のニーズに対して10の優れた代替品を見つけました。各推奨事項には、詳細な互換性分析、サプライチェーン評価、実装に関する考慮事項が含まれています。

@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Search, X, ArrowLeftRight, FileDown, Star, AlertTriangle, Clock, Shield, Zap, Package2, TrendingUp, Info } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
+import { Search, X, ArrowLeftRight, FileDown, Star, Zap, Package2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import RiskBadge from '@/components/RiskBadge';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -132,7 +131,6 @@ const mockComponents: Component[] = [
 
 export default function CompareParts() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const { t } = useLanguage();
   const [selectedParts, setSelectedParts] = useState<Component[]>([]);
   const [searchQuery, setSearchQuery] = useState('');

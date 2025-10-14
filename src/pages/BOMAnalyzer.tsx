@@ -9,7 +9,7 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Upload, Download, FileText, MessageCircle, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Clock, History, Folder, ShoppingCart, Plus, UserCheck, TrendingUp, TrendingDown, AlertCircle, Package, Target } from 'lucide-react';
+import { Upload, Download, FileText, MessageCircle, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Clock, History, Folder, ShoppingCart, Plus, UserCheck, AlertCircle, Package, Target } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { Checkbox } from '@/components/ui/checkbox';
 import DataTable from '@/components/DataTable';
@@ -267,9 +267,8 @@ export default function BOMAnalyzer() {
   const [bomData, setBomData] = useState<BOMItem[]>([]);
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [analysisComplete, setAnalysisComplete] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
   const [selectedProject, setSelectedProject] = useState<string>('');
-  const [bomHistory, setBomHistory] = useState<BOMProject[]>(mockBOMHistory);
+  const [bomHistory] = useState<BOMProject[]>(mockBOMHistory);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [costScenario, setCostScenario] = useState<'original' | 'alternatives' | 'cheapest'>('original');
   const [parseStatus, setParseStatus] = useState<ParseStatus>({
@@ -474,24 +473,24 @@ export default function BOMAnalyzer() {
     {
       key: 'riskLevel',
       title: t('bom.risk'),
-      render: (value: string) => <RiskBadge type={value as any}>{value.toUpperCase()}</RiskBadge>,
+      render: (riskLevel: string) => <RiskBadge type={riskLevel as any}>{riskLevel.toUpperCase()}</RiskBadge>,
     },
     {
       key: 'refdes',
       title: t('bom.refDes'),
-      render: (value: string) => <code className="text-xs bg-muted px-2 py-1 rounded text-foreground font-medium">{value}</code>,
+      render: (refdes: string) => <code className="text-xs bg-muted px-2 py-1 rounded text-foreground font-medium">{refdes}</code>,
     },
     {
       key: 'partNumber',
       title: t('bom.partNumber'),
       sortable: true,
-      render: (value: string, row: BOMItem) => (
+      render: (partNumber: string, row: BOMItem) => (
         <div>
           <code 
             className="bg-muted px-2 py-1 rounded text-sm cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors text-foreground font-medium"
-            onClick={() => handleComponentClick(value)}
+            onClick={() => handleComponentClick(partNumber)}
           >
-            {value}
+            {partNumber}
           </code>
           <p className="text-xs text-muted-foreground mt-1">{row.description}</p>
         </div>
@@ -501,7 +500,7 @@ export default function BOMAnalyzer() {
       key: 'manufacturer',
       title: t('bom.manufacturer'),
       sortable: true,
-      render: (value: string) => <Badge variant="outline">{value}</Badge>,
+      render: (manufacturer: string) => <Badge variant="outline">{manufacturer}</Badge>,
     },
     {
       key: 'quantity',
@@ -513,26 +512,26 @@ export default function BOMAnalyzer() {
       key: 'unitPrice',
       title: t('bom.unitPrice'),
       sortable: true,
-      render: (value: number) => `$${value.toFixed(2)}`,
+      render: (unitPrice: number) => `$${unitPrice.toFixed(2)}`,
       className: 'text-right',
     },
     {
       key: 'leadTime',
       title: t('bom.leadTime'),
       sortable: true,
-      render: (value: number, row: BOMItem) => (
+      render: (leadTime: number) => (
         <div className="flex items-center space-x-2">
           <Clock className="w-4 h-4 text-gray-400" />
-          <span className={value > 20 ? 'text-red-600 font-medium' : ''}>{value} weeks</span>
+          <span className={leadTime > 20 ? 'text-red-600 font-medium' : ''}>{leadTime} weeks</span>
         </div>
       ),
     },
     {
       key: 'riskFactors',
       title: t('bom.riskFactors'),
-      render: (value: string[]) => (
+      render: (riskFactors: string[]) => (
         <div className="space-y-1">
-          {value.map((factor, index) => (
+          {riskFactors.map((factor, index) => (
             <div key={index} className="flex items-center space-x-1">
               <AlertTriangle className="w-3 h-3 text-orange-500" />
               <span className="text-xs text-gray-600">{factor}</span>
@@ -544,9 +543,9 @@ export default function BOMAnalyzer() {
     {
       key: 'alternativeSuggestions',
       title: t('bom.suggestedReplacement'),
-      render: (value: any[], row: BOMItem) => {
-        if (!value || value.length === 0) return <span className="text-gray-400">-</span>;
-        const topAlternative = value[0];
+      render: (alternativeSuggestions: any[], row: BOMItem) => {
+        if (!alternativeSuggestions || alternativeSuggestions.length === 0) return <span className="text-gray-400">-</span>;
+        const topAlternative = alternativeSuggestions[0];
         return (
           <div className="space-y-1">
             <code 
@@ -565,9 +564,9 @@ export default function BOMAnalyzer() {
                 <span className="ml-1">(-${row.costSavings.toFixed(2)} {t('bom.totalSavings')})</span>
               )}
             </div>
-            {value.length > 1 && (
+            {alternativeSuggestions.length > 1 && (
               <div className="text-xs text-muted-foreground">
-                +{value.length - 1} more alternatives
+                +{alternativeSuggestions.length - 1} more alternatives
               </div>
             )}
           </div>
@@ -577,7 +576,7 @@ export default function BOMAnalyzer() {
     {
       key: 'rfqActions',
       title: 'RFQ',
-      render: (value: any, row: BOMItem) => (
+      render: (_: any, row: BOMItem) => (
         <Button
           variant="outline"
           size="sm"
