@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -242,7 +242,7 @@ export default function CrossReference() {
     {
       key: 'actions',
       title: t('partfinder.actions'),
-      render: (value: any, row: any) => {
+      render: (_value: any, row: any) => {
         const buttonText = t('partfinder.showReasoning');
         return (
             <div className="flex items-center gap-2" style={{ position: 'relative', zIndex: 1 }}>

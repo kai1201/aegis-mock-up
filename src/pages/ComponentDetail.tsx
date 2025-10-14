@@ -8,9 +8,9 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { MessageCircle, ExternalLink, FileText, TrendingUp, Package, Zap, Thermometer, Clock, DollarSign, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Building2, Calendar, Download, ChartBar as BarChart3, Flag, Copy, MapPin, Star, Truck, Globe, Cpu, Layers, Gauge, Users, Building, Info, ChevronRight } from 'lucide-react';
+import { MessageCircle, ExternalLink, FileText, TrendingUp, Package, Zap, Thermometer, Clock, DollarSign, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Building2, Calendar, Download, ChartBar as BarChart3, Flag, Copy, Truck, Globe, Cpu, Layers, Gauge, Users, Building, Info, ChevronRight } from 'lucide-react';
 import { Send } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Area, AreaChart } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import DataTable from '@/components/DataTable';
 import AIPanel from '@/components/AIPanel';
 import CompatibilityScore from '@/components/CompatibilityScore';
@@ -393,65 +393,19 @@ const mockAlternatives = [
   },
 ];
 
-const mockDocuments = [
-  {
-    id: 'PCN-ST-2024-003',
-    title: 'STM32F407VG Product Change Notification',
-    type: 'PCN',
-    supplier: 'STMicroelectronics',
-    partNumber: 'STM32F407VGT6',
-    lastTimeBuy: new Date('2024-03-31'),
-    lastShipment: new Date('2024-09-30'),
-    status: 'Active',
-    riskLevel: 'critical',
-  },
-  {
-    id: 'PDN-ST-2024-001',
-    title: 'STM32F407VG Product Discontinuation Notice',
-    type: 'PDN',
-    supplier: 'STMicroelectronics',
-    partNumber: 'STM32F407VGT6',
-    lastTimeBuy: new Date('2024-06-30'),
-    lastShipment: new Date('2024-12-31'),
-    status: 'Active',
-    riskLevel: 'high',
-  },
-];
 
 export default function ComponentDetail() {
   const { partNumber } = useParams<{ partNumber: string }>();
   const navigate = useNavigate();
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const [showAIPanel, setShowAIPanel] = useState(false);
-  const [showCrossReferenceTable, setShowCrossReferenceTable] = useState(false);
   const [vendorFilter, setVendorFilter] = useState('All Vendors');
-  const [bomQuantity, setBomQuantity] = useState(1);
-  const [bomProject, setBomProject] = useState('');
-  const [alertSettings, setAlertSettings] = useState({
-    eol: true,
-    leadTime: true,
-    price: false,
-    stock: true,
-    pcn: true
-  });
 
   const decodedPartNumber = partNumber ? decodeURIComponent(partNumber) : '';
   const componentData = mockComponentData[decodedPartNumber as keyof typeof mockComponentData] || mockComponentData['STM32F407VGT6'];
 
   const handleAlternativeClick = (partNumber: string) => {
     navigate(`/component/${encodeURIComponent(partNumber)}`);
-  };
-
-  const handleAddToBOM = () => {
-    // In a real app, this would add the component to a BOM
-    console.log(`Adding ${bomQuantity} units of ${componentData.basicInfo.partNumber} to BOM project: ${bomProject}`);
-  };
-
-  const toggleAlert = (alertType: string) => {
-    setAlertSettings(prev => ({
-      ...prev,
-      [alertType]: !prev[alertType as keyof typeof prev]
-    }));
   };
 
   const alternativesColumns = [
@@ -681,7 +635,7 @@ export default function ComponentDetail() {
                         <Layers className="w-6 h-6 text-purple-500 mx-auto mb-2" />
                         <div className="text-sm font-medium text-muted-foreground">Memory</div>
                         <div className="font-semibold">
-                          {typeof componentData.keySpecs.memory === 'string' 
+                          {'memory' in componentData.keySpecs && typeof componentData.keySpecs.memory === 'string' 
                             ? componentData.keySpecs.memory 
                             : componentData.keySpecs.memoryDetails?.flash && componentData.keySpecs.memoryDetails?.sram
                               ? `${componentData.keySpecs.memoryDetails.flash}, ${componentData.keySpecs.memoryDetails.sram}`
@@ -1844,7 +1798,7 @@ export default function ComponentDetail() {
                               <p className="text-sm text-red-700 dark:text-red-300">Official change notification</p>
                             </div>
                           </div>
-                            <Button variant="outline" size="sm">
+                          <Button variant="outline" size="sm">
                             <Download className="w-4 h-4 mr-2" />
                             Download
                           </Button>
