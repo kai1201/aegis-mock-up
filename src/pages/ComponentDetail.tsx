@@ -10,13 +10,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator';
 import { MessageCircle, ExternalLink, FileText, TrendingUp, Package, Zap, Thermometer, Clock, DollarSign, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Building2, Calendar, Download, ChartBar as BarChart3, Flag, Copy, MapPin, Star, Truck, Globe, Cpu, Layers, Gauge, Users, Building, Info, ChevronRight } from 'lucide-react';
 import { Send } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Area, AreaChart, ComposedChart } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Area, AreaChart } from 'recharts';
 import DataTable from '@/components/DataTable';
 import AIPanel from '@/components/AIPanel';
-import RiskBadge from '@/components/RiskBadge';
 import CompatibilityScore from '@/components/CompatibilityScore';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { AdoptionSummary, AdoptionMini, INDUSTRY_SEGMENTS } from '@/types/adoption';
+import { AdoptionSummary } from '@/types/adoption';
 // import CrossReferenceTable from '@/components/CrossReferenceTable';
 
 // Mock adoption data
@@ -116,7 +115,7 @@ const mockComponentData = {
         ethernet: 'MAC 10/100',
         sdio: '1 channel'
       },
-      memory: {
+      memoryDetails: {
         flash: '1024 KB',
         sram: '192 KB',
         ccm: '64 KB',
@@ -257,7 +256,7 @@ const mockComponentData = {
         ethernet: 'N/A',
         sdio: 'N/A'
       },
-      memory: {
+      memoryDetails: {
         flash: '16 KB',
         sram: '512 B',
         ccm: 'N/A',
@@ -684,8 +683,8 @@ export default function ComponentDetail() {
                         <div className="font-semibold">
                           {typeof componentData.keySpecs.memory === 'string' 
                             ? componentData.keySpecs.memory 
-                            : componentData.keySpecs.memory?.flash && componentData.keySpecs.memory?.sram
-                              ? `${componentData.keySpecs.memory.flash}, ${componentData.keySpecs.memory.sram}`
+                            : componentData.keySpecs.memoryDetails?.flash && componentData.keySpecs.memoryDetails?.sram
+                              ? `${componentData.keySpecs.memoryDetails.flash}, ${componentData.keySpecs.memoryDetails.sram}`
                               : 'N/A'
                           }
                         </div>
@@ -1031,7 +1030,7 @@ export default function ComponentDetail() {
                     )}
 
                     {/* Memory Specifications */}
-                    {componentData.keySpecs.memory && typeof componentData.keySpecs.memory === 'object' && (
+                    {componentData.keySpecs.memoryDetails && typeof componentData.keySpecs.memoryDetails === 'object' && (
                       <div>
                         <h3 className="text-lg font-semibold mb-4 flex items-center">
                           <Layers className="w-5 h-5 mr-2" />
@@ -1040,19 +1039,19 @@ export default function ComponentDetail() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                           <div className="p-3 border rounded-lg">
                             <label className="text-sm font-medium text-muted-foreground">Flash</label>
-                            <p className="font-semibold">{componentData.keySpecs.memory.flash}</p>
+                            <p className="font-semibold">{componentData.keySpecs.memoryDetails.flash}</p>
                           </div>
                           <div className="p-3 border rounded-lg">
                             <label className="text-sm font-medium text-muted-foreground">SRAM</label>
-                            <p className="font-semibold">{componentData.keySpecs.memory.sram}</p>
+                            <p className="font-semibold">{componentData.keySpecs.memoryDetails.sram}</p>
                           </div>
                           <div className="p-3 border rounded-lg">
                             <label className="text-sm font-medium text-muted-foreground">CCM</label>
-                            <p className="font-semibold">{componentData.keySpecs.memory.ccm}</p>
+                            <p className="font-semibold">{componentData.keySpecs.memoryDetails.ccm}</p>
                           </div>
                           <div className="p-3 border rounded-lg">
                             <label className="text-sm font-medium text-muted-foreground">Backup</label>
-                            <p className="font-semibold">{componentData.keySpecs.memory.backup}</p>
+                            <p className="font-semibold">{componentData.keySpecs.memoryDetails.backup}</p>
                           </div>
                         </div>
                       </div>

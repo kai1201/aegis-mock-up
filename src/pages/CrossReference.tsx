@@ -4,16 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Search, MessageCircle, Star, ExternalLink, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Info, ArrowLeft, Upload, FileText, Filter, Save, Download } from 'lucide-react';
+import { Search, Star, ExternalLink, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Info, ArrowLeft, Upload, Filter, Save, Download } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import DataTable from '@/components/DataTable';
 import AIPanel from '@/components/AIPanel';
 import RiskBadge from '@/components/RiskBadge';
 import ReasoningDrawer from '@/components/ReasoningDrawer';
-import { cn } from '@/lib/utils';
 import CompatibilityScore from '@/components/CompatibilityScore';
 import CrossReferenceTable from '@/components/CrossReferenceTable';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -112,13 +110,10 @@ export default function CrossReference() {
     packageMatch: true,
     pinoutMatch: true,
     voltageRange: [1.8, 5.0],
-    currentRange: [0, 500],
     tempRange: [-40, 125],
-    interfaces: [] as string[],
     aecQ: false,
     maxMOQ: 10000,
     maxLeadTime: 52,
-    regions: [] as string[],
   });
 
   const handleComponentClick = (partNumber: string) => {
@@ -147,16 +142,6 @@ export default function CrossReference() {
       : String(bValue).localeCompare(String(aValue));
   });
 
-  const handleShowReasoning = useCallback((alternative: any) => {
-    console.log('=== REASONING BUTTON CLICKED ===');
-    console.log('Alternative:', alternative);
-    console.log('Current language:', language);
-    setSelectedAlternative(alternative);
-    setShowReasoningDrawer(true);
-    setTimeout(() => {
-      console.log('After setState - showReasoningDrawer should be true');
-    }, 100);
-  }, [language]);
 
   const handleBackToSearch = () => {
     if (fromPage === 'search') {
@@ -313,7 +298,7 @@ export default function CrossReference() {
         );
       },
     },
-  ], [t, language, handleShowReasoning, compareList, toggleCompare]);
+  ], [t, language, compareList, toggleCompare, showReasoningDrawer, selectedAlternative]);
 
   return (
     <div className="max-w-full space-y-6">
