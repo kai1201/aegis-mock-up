@@ -684,31 +684,21 @@ export default function CrossReference() {
               console.log('Closing drawer');
               setShowReasoningDrawer(false);
             }}
-          originalPart={{
-            partNumber: searchQuery,
-            manufacturer: 'STMicroelectronics',
-            keySpecs: {},
-            interfaces: ['SPI', 'I2C', 'UART', 'USB OTG'],
-            package: { type: 'LQFP-100', pitch: '0.5mm' },
-            lifecycle: { status: 'NRND' },
-            compliance: ['RoHS']
-          }}
-          altPart={{
-            partNumber: selectedAlternative.partNumber,
-            manufacturer: selectedAlternative.supplier,
-            keySpecs: {},
-            interfaces: ['SPI', 'I2C', 'UART', 'USB OTG'],
-            package: { type: selectedAlternative.package, pitch: '0.5mm' },
-            lifecycle: { status: 'Active' },
-            compliance: ['RoHS'],
-            price: selectedAlternative.price,
-            leadTime: selectedAlternative.leadTime,
-            stock: selectedAlternative.stock
-          }}
-          compatibility={selectedAlternative.compatibility}
-          fitType={selectedAlternative.type}
-          onNavigateToComponent={handleComponentClick}
-        />
+            altPart={{
+              partNumber: selectedAlternative.partNumber,
+              manufacturer: selectedAlternative.supplier,
+              keySpecs: {},
+              interfaces: ['SPI', 'I2C', 'UART', 'USB OTG'],
+              package: { type: selectedAlternative.package, pitch: '0.5mm' },
+              lifecycle: { status: 'Active' },
+              compliance: ['RoHS'],
+              price: selectedAlternative.price,
+              leadTime: selectedAlternative.leadTime,
+              stock: selectedAlternative.stock
+            }}
+            compatibility={selectedAlternative.compatibility}
+            fitType={selectedAlternative.type || 'Drop-in'}
+          />
         );
       })()}
 

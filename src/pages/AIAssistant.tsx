@@ -129,7 +129,7 @@ export default function AIAssistant() {
       const assistantMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         type: 'assistant',
-        content: generateAIResponse(input, language, t),
+        content: generateAIResponse(input, language),
         sources: [
           { title: 'Component Database 2024', url: '#', type: 'document' },
           { title: 'Cross-Reference Analysis', url: '#', type: 'analysis' },
@@ -269,7 +269,7 @@ export default function AIAssistant() {
     },
   ];
 
-  const generateAIResponse = (query: string, language: string, translateFn: (key: string) => string): string => {
+  const generateAIResponse = (query: string, language: string): string => {
     if (query.toLowerCase().includes('alternative') || query.toLowerCase().includes('replace')) {
       if (language === 'ja') {
         return `コンポーネント交換のニーズに対して10の優れた代替品を見つけました。各推奨事項には、詳細な互換性分析、サプライチェーン評価、実装に関する考慮事項が含まれています。

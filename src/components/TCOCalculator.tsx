@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { X, Calculator, Download, ChartBar as BarChart3, TrendingDown, TrendingUp } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { X, Calculator, Download, TrendingDown, TrendingUp } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface TCOCalculatorProps {
   isOpen: boolean;
@@ -307,7 +307,7 @@ export default function TCOCalculator({ isOpen, onClose, originalComponent, alte
                       <Tooltip />
                       <Bar 
                         dataKey="Cost Delta" 
-                        fill={(entry: any) => entry['Cost Delta'] < 0 ? '#10b981' : '#ef4444'}
+                        fill="#3b82f6"
                         name="Annual Cost Delta ($K)"
                       />
                     </BarChart>

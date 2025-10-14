@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, Bell, MessageCircle, RefreshCw, FileText, Package, User, Settings, X, TriangleAlert as AlertTriangle, ShoppingCart, Sun, Moon, Languages, GitCompare } from 'lucide-react';
+import { Search, Bell, MessageCircle, RefreshCw, FileText, Package, User, Settings, X, ShoppingCart, Sun, Moon, Languages, GitCompare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';

@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { X, Send, User, Building2, Mail, MessageSquare, CircleCheck as CheckCircle, CircleAlert as AlertCircle } from 'lucide-react';
+import { X, Send, User, MessageSquare, CircleCheck as CheckCircle, CircleAlert as AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface MacnicaExpertDrawerProps {
@@ -14,7 +13,6 @@ interface MacnicaExpertDrawerProps {
   onClose: () => void;
   question: string;
   aiAnswer: string;
-  className?: string;
 }
 
 interface ContactForm {
@@ -28,8 +26,7 @@ export default function MacnicaExpertDrawer({
   isOpen,
   onClose,
   question,
-  aiAnswer,
-  className
+  aiAnswer
 }: MacnicaExpertDrawerProps) {
   const { t } = useLanguage();
   const [form, setForm] = useState<ContactForm>({

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 type Language = 'en' | 'ja';
 
@@ -292,9 +292,9 @@ export const translations = {
       
       // Table columns
       rfqId: 'RFQ ID',
-      'title.header': 'Title',
+      titleHeader: 'Title',
       status: 'Status',
-      'suppliers.header': 'Suppliers',
+      suppliersHeader: 'Suppliers',
       responses: 'Responses',
       needBy: 'Need By',
       lastActivity: 'Last Activity',
@@ -1157,9 +1157,9 @@ export const translations = {
       totalValue: '総額',
 
       rfqId: 'RFQ ID',
-      'title.header': 'タイトル',
+      titleHeader: 'タイトル',
       status: 'ステータス',
-      'suppliers.header': 'サプライヤー',
+      suppliersHeader: 'サプライヤー',
       responses: '応答',
       needBy: '必要日',
       lastActivity: '最終活動',

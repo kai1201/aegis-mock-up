@@ -1,29 +1,17 @@
 import { useState } from 'react';
-import { X, Copy, Download, Plus, MessageCircle, ExternalLink, ChevronDown, ChevronRight, Info, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Clock, Package, Zap, Cpu, Shield, Wrench, FileText, CircleX as XCircle, CircleHelp as HelpCircle } from 'lucide-react';
+import { X, Copy, Download, Plus, MessageCircle, ExternalLink, ChevronDown, ChevronRight, Info, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Clock, Package, Shield, Wrench, FileText, CircleX as XCircle, CircleHelp as HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { translations } from '@/contexts/LanguageContext';
 
 interface ReasoningDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  originalPart: {
-    partNumber: string;
-    manufacturer: string;
-    keySpecs: Record<string, any>;
-    interfaces: string[];
-    package: Record<string, any>;
-    lifecycle: Record<string, any>;
-    compliance: string[];
-  };
   altPart: {
     partNumber: string;
     manufacturer: string;
@@ -38,7 +26,6 @@ interface ReasoningDrawerProps {
   };
   compatibility: number;
   fitType: string;
-  onNavigateToComponent: (partNumber: string) => void;
 }
 
 interface CriterionScore {
@@ -300,11 +287,9 @@ const mockCitations: Citation[] = [
 export default function ReasoningDrawer({
   isOpen,
   onClose,
-  originalPart,
   altPart,
   compatibility,
-  fitType,
-  onNavigateToComponent
+  fitType
 }: ReasoningDrawerProps) {
   const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState('summary');
