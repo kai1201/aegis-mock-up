@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { 
   Search, 
@@ -8,7 +8,6 @@ import {
   Zap, 
   Thermometer, 
   Clock, 
-  DollarSign, 
   Building2, 
   Filter,
   X,
@@ -17,12 +16,9 @@ import {
   Loader2,
   AlertCircle,
   ShoppingCart,
-  Sliders,
   CheckSquare,
-  Square,
   Users,
-  Star,
-  Info
+  Star
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,9 +29,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { AdoptionMini, INDUSTRY_SEGMENTS, ADOPTION_RANGES } from '@/types/adoption';
+import { INDUSTRY_SEGMENTS, ADOPTION_RANGES } from '@/types/adoption';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 // Mock data for search results
@@ -332,8 +327,6 @@ const lifecycleOptions = ['Active', 'NRND', 'LTB', 'Obsolete'];
 const vendorOptions = ['Macnica', 'Digi-Key', 'Mouser', 'Arrow', 'Avnet'];
 const complianceOptions = ['RoHS', 'Halogen-free', 'Conflict-free'];
 const leadTimeBands = ['≤8w', '9-16w', '17-24w', '>24w'];
-const adoptionRanges = ADOPTION_RANGES.map(range => range.label);
-const segmentOptions = [...INDUSTRY_SEGMENTS];
 
 type SearchState = 'idle' | 'loading' | 'error' | 'no-results';
 

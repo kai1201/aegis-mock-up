@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Upload, Plus, Search, Filter, FileText, MessageCircle, Clock, DollarSign, Package, Send, Download, Eye, CreditCard as Edit, Trash2, Calendar, Building2, User } from 'lucide-react';
+import { Upload, Plus, Search, FileText, MessageCircle, Clock, Package, Send, Download, Eye, CreditCard as Edit, Trash2, Calendar } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import DataTable from '@/components/DataTable';
 import { cn } from '@/lib/utils';
@@ -196,7 +196,7 @@ export default function RFQManager() {
       key: 'id',
       title: t('rfq.rfqId'),
       sortable: true,
-      render: (value: string, row: RFQ) => (
+      render: (value: string) => (
         <div className="flex items-center space-x-2">
           <FileText className="w-4 h-4 text-gray-400" />
           <code className="font-mono text-sm">{value}</code>
@@ -282,7 +282,7 @@ export default function RFQManager() {
     {
       key: 'actions',
       title: t('rfq.actions'),
-      render: (value: any, row: RFQ) => (
+      render: (_value: any, row: RFQ) => (
         <div className="flex items-center space-x-1">
           <Button 
             variant="ghost" 
@@ -574,7 +574,7 @@ export default function RFQManager() {
                       <div className="col-span-2">{t('rfq.targetPrice')}</div>
                       <div className="col-span-1">{t('rfq.actions')}</div>
                     </div>
-                    {newRFQItems.map((item, index) => (
+                    {newRFQItems.map((item) => (
                       <div key={item.id} className="px-4 py-3 border-t grid grid-cols-12 gap-4 items-center">
                         <div className="col-span-3">
                           <Input

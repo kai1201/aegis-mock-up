@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, Send, Download, FileText, MessageCircle, Clock, DollarSign, Package, Building2, User, Calendar, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Copy, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Send, Download, FileText, MessageCircle, Clock, DollarSign, Package, Building2, User, Calendar, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, Copy } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -219,7 +219,6 @@ const mockMessages: Message[] = [
 ];
 
 export default function RFQDetail() {
-  const { rfqId } = useParams<{ rfqId: string }>();
   const navigate = useNavigate();
   const { t, language } = useLanguage();
   const [messages, setMessages] = useState<Message[]>(mockMessages);
@@ -390,7 +389,7 @@ export default function RFQDetail() {
             </CardHeader>
             <CardContent className="p-6">
               <div className="space-y-4">
-                {rfqData.items.map((item, index) => (
+                {rfqData.items.map((item) => (
                   <div key={item.id} className="border border-border rounded-lg p-4 bg-card">
                     <div className="flex justify-between items-start mb-2">
                       <code className="text-base font-mono bg-muted px-3 py-1 rounded text-foreground">
