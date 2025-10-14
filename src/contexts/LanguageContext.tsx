@@ -77,7 +77,6 @@ export const translations = {
       // Sidebar
       quickTools: 'Quick Tools',
       bomUpload: 'BOM Upload',
-      compareParts: 'Compare Parts',
       aiExpert: 'AI Expert',
       needHelp: 'Need Help?',
       needHelpDescription: 'Get assistance with component selection, cross-referencing, and supply chain analysis.',
@@ -125,6 +124,7 @@ export const translations = {
       
       // Suggested queries
       suggestedQueries: {
+        // Ensure all keys within this object are unique
         findAlternatives: 'Find alternatives with 95%+ compatibility for STM32F407VGT6',
         supplyRisks: 'What are the current supply chain risks for automotive MCUs?',
         compareLeadTimes: 'Compare lead times between TI and ST microcontrollers',
@@ -802,7 +802,6 @@ export const translations = {
       // Sidebar
       quickTools: 'クイックツール',
       bomUpload: 'BOMアップロード',
-      compareParts: '部品比較',
       aiExpert: 'AI専門家',
       needHelp: 'サポートが必要ですか？',
       needHelpDescription: 'コンポーネント選択、クロスリファレンス、サプライチェーン分析のサポートを受けられます。',
